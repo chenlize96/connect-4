@@ -8,20 +8,22 @@ public class Connect4MoveMessage implements Serializable {
 	private int col;
 	private int color;
 
-	public Connect4MoveMessage(int row, int col, int color){
-		
+	public Connect4MoveMessage(int row, int col, int color) {
+		this.row = row;
+		this.col = col;
+		this.color = color;
 	}
 
-	public int getRow(){
-		return 0;
+	public int getRow() {
+		return row;
 	}
 	
-	public int getColumn(){
-		return 0;
+	public int getColumn() {
+		return col;
 	}
 
-	public int getColor(){
-		return 0;
+	public int getColor() {
+		return color;
 	}
 
 }
