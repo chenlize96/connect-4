@@ -24,5 +24,13 @@ class Connect4Tests {
 		assertTrue(c.getDisk(57 + 48 * 3, 44) == 4);
 		assertTrue(c.getDisk(57 + 48 * 4, 44) == 5);
 		assertTrue(c.getDisk(57 + 48 * 5, 44) == 6);
+		
+	}
+	@Test
+	void testMoveMessage() {
+		Connect4MoveMessage m = new Connect4MoveMessage(3, 2, 1);
+		assertTrue(m.getColor() == 1);
+		assertTrue(m.getRow() == 3);
+		assertTrue(m.getColumn() == 2);
 	}
 }
