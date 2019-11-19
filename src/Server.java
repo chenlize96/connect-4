@@ -20,6 +20,13 @@ public class Server {
 	private ObjectInputStream input;
 
 	@SuppressWarnings("resource")
+	
+	/**
+	 * constructor
+	 *
+	 * @param port     the port
+	 * @param isHuman  indicate if it is human play
+	 */	
 	public Server(int port, boolean isHuman) throws Exception{
 		this.isHuman = isHuman;
 		ServerSocket serverSocket = new ServerSocket(port);		

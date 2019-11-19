@@ -19,6 +19,13 @@ public class Client {
 	private  ObjectOutputStream output;
 	private  ObjectInputStream input;
 
+	/**
+	 * constructor
+	 *
+	 * @param host     localhost
+	 * @param port     the port
+	 * @param isHuman  indicate if it is human play
+	 */	
 	public Client(String host, int port, boolean isHuman) throws Exception{
 		this.isHuman = isHuman;
 		Thread server = new Thread(){

@@ -15,6 +15,13 @@ public class Connect4Controller {
 	private int turn = 1;
 	private boolean isComputer;
 
+	
+	/**
+	 * constructor
+	 *
+	 * @param view     Connect4View
+	 * @param model     Connect4Model
+	 */	
 	public Connect4Controller(Connect4View view, Connect4Model model) {
 		this.view = view;
 		this.model = model;

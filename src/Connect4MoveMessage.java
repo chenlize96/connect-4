@@ -11,6 +11,14 @@ public class Connect4MoveMessage implements Serializable {
 	private int col;
 	private int color;
 
+	
+	/**
+	 * constructor
+	 *
+	 * @param row     the target row
+	 * @param col     the target col
+	 * @param color     the target color
+	 */	
 	public Connect4MoveMessage(int row, int col, int color) {
 		this.row = row;
 		this.col = col;

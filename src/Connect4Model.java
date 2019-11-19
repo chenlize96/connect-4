@@ -23,6 +23,10 @@ public class Connect4Model extends Observable {
 	private int[][] panel;
 	private Connect4MoveMessage preMove = null;
 
+	/**
+	 * constructor
+	 *
+	 */	
 	public Connect4Model() {
 		// Generate random integers in range 1 to 2 
 		Random rand = new Random(); 

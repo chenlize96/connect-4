@@ -1,5 +1,9 @@
 import javafx.application.Application;
 
+/**
+ * main
+ *
+ */	
 public class Connect4 {
 
 
