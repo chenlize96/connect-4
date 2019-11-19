@@ -1,5 +1,8 @@
 import java.io.Serializable;
 
+/**
+ * moveMessage for connect4 which is used in client and server
+ */	
 public class Connect4MoveMessage implements Serializable {
 	public static int YELLOW = 1;
 	public static int RED = 2;
@@ -14,14 +17,29 @@ public class Connect4MoveMessage implements Serializable {
 		this.color = color;
 	}
 
+	/**
+	 * get the row
+	 *
+	 * @return the row
+	 */	
 	public int getRow() {
 		return row;
 	}
-	
+
+	/**
+	 * get the col
+	 *
+	 * @return the col
+	 */	
 	public int getColumn() {
 		return col;
 	}
 
+	/**
+	 * get the color
+	 *
+	 * @return the color
+	 */	
 	public int getColor() {
 		return color;
 	}

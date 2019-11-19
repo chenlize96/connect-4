@@ -23,18 +23,22 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * view for connect4
+ * 
+ */
 public class Connect4View extends Application implements Observer{
-	
+
 	public GridPane grid;
-	
+
 	@Override
 	public void start(Stage stage) throws Exception {
 		Connect4Model m = new Connect4Model();
 		m.addObserver(this);
 		Connect4Controller c = new Connect4Controller(this, m);
 		Menu menu = new Menu("File"); 
-        MenuItem item = new MenuItem("New Game"); 
-        item.setOnAction(new EventHandler<ActionEvent>() {
+		MenuItem item = new MenuItem("New Game"); 
+		item.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				DialogBox box = new DialogBox();
@@ -42,9 +46,9 @@ public class Connect4View extends Application implements Observer{
 				box.showAndWait();
 			}
 		});
-        menu.getItems().add(item);
-        MenuBar mb = new MenuBar(); mb.setMinHeight(25); 
-        mb.getMenus().add(menu); 
+		menu.getItems().add(item);
+		MenuBar mb = new MenuBar(); mb.setMinHeight(25); 
+		mb.getMenus().add(menu); 
 		grid = new GridPane(); int i, j; double circleY = 28 + 25;
 		for (i = 0; i < 6; i++) {
 			double circleX = 28;
@@ -62,20 +66,20 @@ public class Connect4View extends Application implements Observer{
 		grid.setPadding(new Insets(8));
 		grid.setOnMouseClicked(e -> {
 			double x = e.getSceneX(); double y = e.getSceneY();
-		    int disk = c.getDisk(x, y);
-		    c.humanTurn(disk);
+			int disk = c.getDisk(x, y);
+			c.humanTurn(disk);
 		});
 		BorderPane p = new BorderPane();
 		p.setCenter(grid); p.setTop(mb);
 		Scene scene = new Scene(p, 344, 296 + 25); 
 		stage.setScene(scene); stage.setTitle("Connect 4");
-        stage.show();
+		stage.show();
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	@Override
 	public void update(Observable o, Object arg) {	
 		if (arg instanceof List<?>) {
@@ -110,11 +114,11 @@ public class Connect4View extends Application implements Observer{
 				alert.setContentText("It is a draw!\n");
 			}else if (command != 0) {
 				alert.setContentText("You won!\n");
-			//}else if (command == 1) {
-			//	alert.setContentText("You lost!\n");
+				//}else if (command == 1) {
+				//	alert.setContentText("You lost!\n");
 			}
 			alert.showAndWait();
-			
+
 		}
 
 
