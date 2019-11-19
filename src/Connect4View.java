@@ -31,6 +31,12 @@ public class Connect4View extends Application implements Observer{
 
 	public GridPane grid;
 
+	/**
+	 * it is the stage
+	 *
+	 * @param stage    Stage
+	 * @throws exception
+	 */	
 	@Override
 	public void start(Stage stage) throws Exception {
 		Connect4Model m = new Connect4Model();
@@ -77,9 +83,12 @@ public class Connect4View extends Application implements Observer{
 	}
 
 
-
-
-
+	/**
+	 * update the view
+	 *
+	 * @param o    observable
+	 * @param arg  the argument passed in
+	 */	
 	@Override
 	public void update(Observable o, Object arg) {	
 		if (arg instanceof List<?>) {
