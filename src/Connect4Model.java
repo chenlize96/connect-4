@@ -46,19 +46,86 @@ public class Connect4Model extends Observable {
 		System.out.println("turn £º"+turn);
 		if (turn == 43) {
 			setChanged();
-			notifyObservers(0); // 0 means end, 1 means yellow wins
+			notifyObservers(0); // 0 means end
 		}
 	}
 	
 	public void checkWhoWins(int turn) {
-		int row = preMove.getRow();
-		int col = preMove.getColumn();
 		int hue = preMove.getColor();
-		System.out.println(row+" "+col+" "+hue);
-				
+		if (checkSurrounding()){
+			setChanged();         // 2 means red wins
+			notifyObservers(hue); // 1 means yellow wins
+		}
+		
 	}
 	
 	
+	private boolean checkSurrounding() {
+		return checkRows() || checkColumns() || checkRestDiagonal() ||
+				checkMainDiagonal();
+	}
+	
+	private boolean checkRows() {
+	    for (int row = 0; row < panel.length; row++) {
+	        for (int col = 0; col < panel[row].length - 3; col++) {
+	            int hue = panel[row][col];
+	            if (hue != 0 && hue == panel[row][col + 1] && 
+	                hue == panel[row][col + 2] && 
+	                hue == panel[row][col + 3]) {
+	                return true;
+	            }
+	        }
+	    }
+	    return false;
+	}
+
+	
+	private boolean checkMainDiagonal() {
+	    for (int row = 0; row < panel.length - 3; row++) {
+	        for (int col = 0; col < panel[row].length - 3; col++) {
+	            int hue = panel[row][col];
+	            if (hue != 0 && hue == panel[row + 1][col + 1] && 
+	                hue == panel[row + 2][col + 2] && 
+	                hue == panel[row + 3][col + 3]) {
+	                return true;
+	            }
+	        }
+	    }
+	    return false;
+	}
+
+	private boolean checkRestDiagonal() {
+	    for (int row = 0; row < panel.length - 3; row++) {
+	        for (int col = 3; col < panel[row].length; col++) {
+	            int hue = panel[row][col];
+	            if (hue != 0 && hue == panel[row + 1][col - 1] && 
+	                hue == panel[row + 2][col - 2] && 
+	                hue == panel[row + 3][col - 3]) {
+	                return true;
+	            }
+	        }
+	    }
+	    return false;
+	}
+	
+	private boolean checkColumns(){
+	    for (int row = 0; row < panel.length - 3; row++) {
+	        for (int col = 0; col < panel[row].length; col++) {
+	            int hue = panel[row][col];
+	            if (hue != 0 && hue == panel[row + 1][col] && 
+	                hue == panel[row + 2][col] && 
+	                hue == panel[row + 3][col]) {
+	                return true;
+	            }
+	        }
+	    }
+	    return false;
+	}
+
+
+	
+	
+
 	
 	// list contains the ball places we access
 	public boolean move(List<Circle> target) {

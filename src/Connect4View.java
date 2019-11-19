@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -50,9 +51,7 @@ public class Connect4View extends Application implements Observer{
 		grid.setPadding(new Insets(8));
 		grid.setOnMouseClicked(e -> {
 			double x = e.getSceneX(); double y = e.getSceneY();
-		    System.out.println("x: "+x+"; y: "+y);
 		    int disk = c.getDisk(x, y);
-		    System.out.println(disk);
 		    c.humanTurn(disk);
 		});
 		BorderPane p = new BorderPane();
@@ -68,40 +67,44 @@ public class Connect4View extends Application implements Observer{
 	
 	@Override
 	public void update(Observable o, Object arg) {	
-	
+		if (arg instanceof List<?>) {
+			@SuppressWarnings("unchecked")
+			List<Circle> target = (List<Circle>) arg;
+			if (target.isEmpty()) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setContentText("Column full, pick somewhere else!\n");
+				alert.showAndWait();
+				return;
+			}
+			int gridSize = grid.getChildren().size();
+			for (Circle c : target) {
+				Paint pre = c.getFill();
+				double x = c.getCenterX(); double y = c.getCenterY();
+				for (int i = 0; i < gridSize; i++) {
+					Circle temp = (Circle) grid.getChildren().get(i);
+					if (temp.getCenterX() == x && temp.getCenterY() == y) {
+						temp.setFill(pre);
+						break;
+					}
+				}
+			}
+
+		}
 		if (arg instanceof Integer) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Message");
 			int command = (int) arg;
 			if (command == 0) {
 				alert.setContentText("It is a draw!\n");
+			}else if (command != 0) {
+				alert.setContentText("You won!\n");
 			}
 			alert.showAndWait();
-			return;
+			
 		}
-		@SuppressWarnings("unchecked")
-		List<Circle> target = (List<Circle>) arg;
-		if (target.isEmpty()) {
-			return;
-		}
-		int gridSize = grid.getChildren().size();
-		for (Circle c : target) {
-			Paint pre = c.getFill();
-			double x = c.getCenterX(); double y = c.getCenterY();
-			for (int i = 0; i < gridSize; i++) {
-				Circle temp = (Circle) grid.getChildren().get(i);
-				if (temp.getCenterX() == x && temp.getCenterY() == y) {
-					temp.setFill(pre);
-					break;
-				}
-			}
-		}
-		
-		
-		
-		
-		
-		
-		
+
+
+
 	}
 }

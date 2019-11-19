@@ -29,9 +29,9 @@ public class Connect4Controller {
 				target.add(temp);
 			}
 		}
-		for (Circle n : target) {
-			System.out.println(n.getCenterX() + " "+n.getCenterY());
-		}
+		//for (Circle n : target) {
+			//System.out.println(n.getCenterX() + " "+n.getCenterY());
+		//}
 		if (model.move(target)) {
 			turn++;
 			checkWinner();
