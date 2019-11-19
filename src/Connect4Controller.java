@@ -10,10 +10,12 @@ public class Connect4Controller {
 	public Connect4View view;
 	public Connect4Model model;
 	public int turn = 1;
+	private boolean isComputer;
 	
 	public Connect4Controller(Connect4View view, Connect4Model model) {
 		this.view = view;
 		this.model = model;
+		this.isComputer = true; 
 	}
 	
 	
@@ -29,15 +31,14 @@ public class Connect4Controller {
 				target.add(temp);
 			}
 		}
-		//for (Circle n : target) {
-			//System.out.println(n.getCenterX() + " "+n.getCenterY());
-		//}
 		if (model.move(target)) {
 			turn++;
 			checkWinner();
 			checkEnd();
 		}
-		System.out.println("newturn:" + turn);
+		if (isComputer) {
+			computerTurn();
+		}
 	}
 	
 	@SuppressWarnings("static-access")
@@ -67,6 +68,9 @@ public class Connect4Controller {
 		model.gameOver();
 	}
 	
+	public int getTurn() {
+		return turn;
+	}
 	
 	public int getDisk(double x, double y) {
 	    return model.getDisk(x, y);

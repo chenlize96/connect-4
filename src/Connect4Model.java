@@ -31,20 +31,18 @@ public class Connect4Model extends Observable {
 				panel[i][j] = 0;
 			}
 		}
-		printP();
 	}
 	
-	public void printP() {
+	/*public void printP() {
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 7; j++) {
 				System.out.print(panel[i][j]);
 			}
 			System.out.println();
 		}
-	}
+	}*/
 
 	public void gameOver(){
-		System.out.println("turn £º"+turn);
 		if (turn == 43) {
 			setChanged();
 			notifyObservers(0); // 0 means end
@@ -55,7 +53,7 @@ public class Connect4Model extends Observable {
 	public int getBestColumns() {
 		// Generate random integers in range 0 to 6 
 		Random rand = new Random();
-		int disk = 0;
+		disk = 0;
 		if (turn == 1) {
 			disk = rand.nextInt(7);
 		}
@@ -66,27 +64,32 @@ public class Connect4Model extends Observable {
         			empty.add(i);
         		}
         	}
-        	nextStepSelfWin(empty);	
+        	disk = nextStepSelfWin(empty);	
         }	
 		return disk;
 	}
 	
 	
 	private int nextStepSelfWin(List<Integer> use) {
-		int disk = 0;
+		int disk = 0; boolean changed = false;
 		int myColor = 3 - preMove.getColor(); //get self color
 		for (int i = 0; i < use.size(); i++) {
 			disk = use.get(i);
 			int row;
 			for (row = panel.length - 1; row >= 0; row--) {
+				changed = false;
 				if (panel[row][disk] == 0) {
 					panel[row][disk] = myColor;
+					changed = true;
 					break;
 				}
 			}
 			if (checkSurrounding()) {
 				panel[row][disk] = 0;
 				return disk;
+			}
+			if (changed) {
+				panel[row][disk] = 0;
 			}
 		}
 		// if there is no one leading to victory, then call preventRivalToWin
@@ -95,20 +98,25 @@ public class Connect4Model extends Observable {
 	}
 	
 	private int preventRivalToWin(List<Integer> use) {
-		int disk = 0;
+		int disk = 0; boolean changed = false;
 		int rival = preMove.getColor(); //get rival color
 		for (int i = 0; i < use.size(); i++) {
 			disk = use.get(i);
-			int row;
+			int row; 
 			for (row = panel.length - 1; row >= 0; row--) {
+				changed = false;
 				if (panel[row][disk] == 0) {
 					panel[row][disk] = rival;
+					changed = true;
 					break;
 				}
 			}
 			if (checkSurrounding()) {
 				panel[row][disk] = 0;
 				return disk;
+			}
+			if (changed) {
+				panel[row][disk] = 0;
 			}
 		}
 		// if rival does not have connect 3, block its connect 2 in rows
@@ -232,14 +240,12 @@ public class Connect4Model extends Observable {
 			target.get(target.size() - 1).setFill(setColor);
 			Connect4MoveMessage message = new Connect4MoveMessage(target.size() - 1, disk, hue);
 			panel[target.size() - 1][disk] = hue;
-			System.out.println("row:"+message.getRow()+" col:"+message.getColumn()+" color:"+message.getColor());
 			preMove = message;
 			success = true;
 			turn++;
 		}
 		setChanged();
 		notifyObservers(target);
-		printP();
 		return success;
 	}
 

@@ -39,9 +39,7 @@ public class Connect4View extends Application implements Observer{
 			public void handle(ActionEvent event) {
 				DialogBox box = new DialogBox();
 				box.initModality(Modality.APPLICATION_MODAL);
-				box.setTitle("Network Setup");
 				box.showAndWait();
-
 			}
 		});
         menu.getItems().add(item);
