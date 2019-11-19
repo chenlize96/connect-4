@@ -7,9 +7,9 @@ import javafx.scene.shape.Circle;
 
 public class Connect4Controller {
 
-	public Connect4View view;
-	public Connect4Model model;
-	public int turn = 1;
+	private Connect4View view;
+	private Connect4Model model;
+	private int turn = 1;
 	private boolean isComputer;
 	
 	public Connect4Controller(Connect4View view, Connect4Model model) {

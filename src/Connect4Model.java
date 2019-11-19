@@ -12,11 +12,10 @@ import javafx.scene.shape.Circle;
 
 public class Connect4Model extends Observable {
 	
-	public int turn = 1;
-	public List<Circle> target;
-	public int disk = 0;
-	public int first; // represent the color of the first player
-	public int second;
+	private int turn = 1;
+	private int disk = 0;
+	private int first; // represent the color of the first player
+	private int second;
 	private int[][] panel;
 	private Connect4MoveMessage preMove = null;
 	
