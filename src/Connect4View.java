@@ -1,9 +1,11 @@
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -18,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Connect4View extends Application implements Observer{
@@ -31,6 +34,16 @@ public class Connect4View extends Application implements Observer{
 		Connect4Controller c = new Connect4Controller(this, m);
 		Menu menu = new Menu("File"); 
         MenuItem item = new MenuItem("New Game"); 
+        item.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				DialogBox box = new DialogBox();
+				box.initModality(Modality.APPLICATION_MODAL);
+				box.setTitle("Network Setup");
+				box.showAndWait();
+
+			}
+		});
         menu.getItems().add(item);
         MenuBar mb = new MenuBar(); mb.setMinHeight(25); 
         mb.getMenus().add(menu); 
@@ -99,6 +112,8 @@ public class Connect4View extends Application implements Observer{
 				alert.setContentText("It is a draw!\n");
 			}else if (command != 0) {
 				alert.setContentText("You won!\n");
+			//}else if (command == 1) {
+			//	alert.setContentText("You lost!\n");
 			}
 			alert.showAndWait();
 			

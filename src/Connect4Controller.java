@@ -40,9 +40,22 @@ public class Connect4Controller {
 		System.out.println("newturn:" + turn);
 	}
 	
+	@SuppressWarnings("static-access")
 	public void computerTurn() {
-		
-		
+		int col = model.getBestColumns();
+		int gridSize = view.grid.getChildren().size();
+		List<Circle> target = new ArrayList<>(); 
+		for (int i = 0; i < gridSize; i++) {
+			Circle temp = (Circle) view.grid.getChildren().get(i);
+			if (view.grid.getColumnIndex(temp) == col) {
+				target.add(temp);
+			}
+		}
+		if (model.move(target)) {
+			turn++;
+			checkWinner();
+			checkEnd();
+		}
 	}
 	
 	

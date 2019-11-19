@@ -1,5 +1,6 @@
 
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
@@ -49,6 +50,87 @@ public class Connect4Model extends Observable {
 			notifyObservers(0); // 0 means end
 		}
 	}
+	
+	
+	public int getBestColumns() {
+		// Generate random integers in range 0 to 6 
+		Random rand = new Random();
+		int disk = 0;
+		if (turn == 1) {
+			disk = rand.nextInt(7);
+		}
+        if (turn != 1) { // then we have preMove
+        	List<Integer> empty = new ArrayList<>(); // get usable disks 
+        	for (int i = 0; i < panel[0].length; i++) {
+        		if (panel[0][i] == 0) { // if it is not full
+        			empty.add(i);
+        		}
+        	}
+        	nextStepSelfWin(empty);	
+        }	
+		return disk;
+	}
+	
+	
+	private int nextStepSelfWin(List<Integer> use) {
+		int disk = 0;
+		int myColor = 3 - preMove.getColor(); //get self color
+		for (int i = 0; i < use.size(); i++) {
+			disk = use.get(i);
+			int row;
+			for (row = panel.length - 1; row >= 0; row--) {
+				if (panel[row][disk] == 0) {
+					panel[row][disk] = myColor;
+					break;
+				}
+			}
+			if (checkSurrounding()) {
+				panel[row][disk] = 0;
+				return disk;
+			}
+		}
+		// if there is no one leading to victory, then call preventRivalToWin
+		disk = preventRivalToWin(use);
+		return disk;
+	}
+	
+	private int preventRivalToWin(List<Integer> use) {
+		int disk = 0;
+		int rival = preMove.getColor(); //get rival color
+		for (int i = 0; i < use.size(); i++) {
+			disk = use.get(i);
+			int row;
+			for (row = panel.length - 1; row >= 0; row--) {
+				if (panel[row][disk] == 0) {
+					panel[row][disk] = rival;
+					break;
+				}
+			}
+			if (checkSurrounding()) {
+				panel[row][disk] = 0;
+				return disk;
+			}
+		}
+		// if rival does not have connect 3, block its connect 2 in rows
+		for (int j = panel.length - 1; j >= 0; j--) {
+			for (int col = 0; col < panel[j].length - 3; col++) {
+				if (panel[j][col] == 0 && panel[j][col + 1] == rival 
+						&& panel[j][col + 2] == rival
+						&& panel[j][col + 3] == 0) {
+					if (use.contains(col)) {
+						return col;
+					}else if (use.contains(col + 3)) {
+						return col + 3;
+					}
+				}
+			}
+		}
+		Random rand = new Random();
+		int p = rand.nextInt(use.size());
+		return use.get(p);
+	}
+	
+	
 	
 	public void checkWhoWins(int turn) {
 		int hue = preMove.getColor();
