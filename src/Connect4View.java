@@ -5,9 +5,11 @@ import java.util.Observer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -51,7 +53,7 @@ public class Connect4View extends Application implements Observer{
 		    System.out.println("x: "+x+"; y: "+y);
 		    int disk = c.getDisk(x, y);
 		    System.out.println(disk);
-		    c.move(disk, grid);
+		    c.humanTurn(disk);
 		});
 		BorderPane p = new BorderPane();
 		p.setCenter(grid); p.setTop(mb);
@@ -65,9 +67,23 @@ public class Connect4View extends Application implements Observer{
 	
 	
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg) {	
+	
+		if (arg instanceof Integer) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Message");
+			int command = (int) arg;
+			if (command == 0) {
+				alert.setContentText("It is a draw!\n");
+			}
+			alert.showAndWait();
+			return;
+		}
 		@SuppressWarnings("unchecked")
 		List<Circle> target = (List<Circle>) arg;
+		if (target.isEmpty()) {
+			return;
+		}
 		int gridSize = grid.getChildren().size();
 		for (Circle c : target) {
 			Paint pre = c.getFill();
