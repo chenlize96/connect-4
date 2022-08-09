@@ -1,8 +1,5 @@
 
-# CSC 335 Project 5: Networked Connect 4
-
-
-Project Description
+Networked Connect 4
 ===================
 
 This project is to implement the game of Connect 4 using all of the tools we 
