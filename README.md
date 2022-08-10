@@ -31,11 +31,13 @@ spaces (white) or our player and computer tokens (yellow and red).
 <br>
 <h2 id="board"> 2. Main Board</h2>
 <p>
-<img src="./Screenshots/board.png" width="700">
+<img src="./Screenshots/board.png" width="400">
 </p>
+<br>
 <p>
-<img src="./Screenshots/server-client.png" width="700">
+<img src="./Screenshots/server-client.png" width="400">
 </p>
+<br>
 <p>
-<img src="./Screenshots/game.png" width="700">
+<img src="./Screenshots/game.png" width="400">
 </p>
